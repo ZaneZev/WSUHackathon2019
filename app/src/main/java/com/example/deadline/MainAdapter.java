@@ -9,8 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class MainAdapter extends RecyclerView.Adapter{
+import java.util.ArrayList;
 
+public class MainAdapter extends RecyclerView.Adapter{
+    private ArrayList<Quest> Questies;
+
+    public MainAdapter(ArrayList<Quest> Questies){
+        this.Questies=Questies;
+    }
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -20,12 +26,12 @@ public class MainAdapter extends RecyclerView.Adapter{
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        ((mViewHolder) viewHolder).bindData(models.get(i));
+        ((mViewHolder) viewHolder).bindData(Questies.get(i));
     }
 
     @Override
     public int getItemCount() {
-        return models.size();
+        return Questies.size();
     }
     @Override
     public int getItemViewType(final int i){
@@ -46,8 +52,26 @@ public class MainAdapter extends RecyclerView.Adapter{
         }
         public void bindData(final Quest viewModel){
             Quest.setText((viewModel.getQuestName()));
+            int tmpLvl=0;
+            String tmpLvlName = "Null Lvl.";
+            int tmpPntsUp = 0;
+            int tmpPntsLow = 0;
+            for(Level i :viewModel.getLevels()){
+                if(i.getPointsNeededtoLevelUp()<=viewModel.getTotalNumberOfPoints()){
+                    tmpLvl=i.getLevelNumber();
+                    tmpPntsLow = i.getPointsNeededtoLevelUp();
+                    tmpLvlName = i.getLevelName();
+                }
+            }
+            try{
+                tmpPntsUp = viewModel.getLevels().get(tmpLvl+1).getPointsNeededtoLevelUp();
+            }catch (Exception E){}
+            Level.setText(tmpLvlName);
             Level.setText(("lvl.0"));//TODO!!!!!
-            Pts.setText(());
+            Pts.setText((""+viewModel.getTotalNumberOfPoints()+" pts."));
+            Prgs.setMin(tmpPntsLow);
+            Prgs.setMax(tmpPntsUp);
+            Prgs.setProgress(viewModel.getTotalNumberOfPoints());
         }
     }
 }
