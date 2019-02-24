@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ import com.google.firebase.database.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
+import java.util.function.ToIntFunction;
 
 
 public class MainActivity extends AppCompatActivity
@@ -40,12 +41,34 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "MyActivity";
     private DatabaseReference mDatabase;
 
-
+    Button pushButton;
+    EditText age;
+    EditText name;
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     Globals sharedData = Globals.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
+
+        // Locate the button in activity_main.xml
+        pushButton = (Button) findViewById(R.id.PushtoDatabase);
+        age = (EditText) findViewById(R.id.Age);
+        name = (EditText) findViewById(R.id.Name);
+
+
+        // Capture button clicks
+        pushButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View arg0) {
+                Globals.getInstance().user.getUserinfo().setAge( Integer.parseInt(age.getText().toString()));
+                Globals.getInstance().user.getUserinfo().setFirstName(name.getText().toString());
+                System.out.println(Globals.getInstance().user);
+                mDatabase.child("User").child(Globals.getInstance().user.getUserinfo().GetFullName()).setValue(Globals.getInstance().user);
+            }
+        });
 
 
 //        // Person 1
@@ -153,8 +176,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
