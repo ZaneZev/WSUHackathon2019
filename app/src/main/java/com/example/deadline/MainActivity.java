@@ -54,24 +54,24 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
 
-        // Locate the button in activity_main.xml
-        pushButton = (Button) findViewById(R.id.PushtoDatabase);
-        age = (EditText) findViewById(R.id.Age);
-        name = (EditText) findViewById(R.id.Name);
-
-
-
-
-        // Capture button clicks
-        pushButton.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View arg0) {
-                Globals.getInstance().user.getUserinfo().setAge( Integer.parseInt(age.getText().toString()));
-                Globals.getInstance().user.getUserinfo().setFirstName(name.getText().toString());
-                System.out.println(Globals.getInstance().user);
-                mDatabase.child("User").child(Globals.getInstance().user.getUserinfo().GetFullName()).setValue(Globals.getInstance().user);
-            }
-        });
+//        // Locate the button in activity_main.xml
+//        pushButton = (Button) findViewById(R.id.PushtoDatabase);
+//        age = (EditText) findViewById(R.id.Age);
+//        name = (EditText) findViewById(R.id.Name);
+//
+//
+//
+//
+//        // Capture button clicks
+//        pushButton.setOnClickListener(new View.OnClickListener() {
+//
+//            public void onClick(View arg0) {
+//                Globals.getInstance().user.getUserinfo().setAge( Integer.parseInt(age.getText().toString()));
+//                Globals.getInstance().user.getUserinfo().setFirstName(name.getText().toString());
+//                System.out.println(Globals.getInstance().user);
+//                mDatabase.child("User").child(Globals.getInstance().user.getUserinfo().GetFullName()).setValue(Globals.getInstance().user);
+//            }
+//        });
 
 
 //        // Person 1
@@ -123,7 +123,6 @@ public class MainActivity extends AppCompatActivity
 //
 //        myRef.setValue("Hello, World");
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         mDatabase.orderByChild("User").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -131,13 +130,11 @@ public class MainActivity extends AppCompatActivity
                if(tmp!=null){
                    Globals.getInstance().user = tmp;
                    System.out.println(Globals.getInstance().user);
-                   System.out.println("WOOP!");
-                   ((TextView)findViewById(R.id.pts1)).setText(""+Globals.getInstance().user.getQuests().get(0).getTotalNumberOfPoints());
-                   ((ProgressBar)findViewById(R.id.progressBar)).setProgress(Globals.getInstance().user.getQuests().get(0).getTotalNumberOfPoints());
-                   ((TextView)findViewById(R.id.lvl1)).setText("LVL 0");
-                   ((TextView)findViewById(R.id.pts1)).setText(""+Globals.getInstance().user.getQuests().get(0).getTotalNumberOfPoints());
-                   ((TextView)findViewById(R.id.pts1)).setText(""+Globals.getInstance().user.getQuests().get(0).getTotalNumberOfPoints());
 
+//                   ((TextView)findViewById(R.id.pts1)).setText(""+Globals.getInstance().user.getQuests().get(0).getTotalNumberOfPoints());
+//                   ((ProgressBar)findViewById(R.id.progressBar)).setProgress(Globals.getInstance().user.getQuests().get(0).getTotalNumberOfPoints());
+//                   ((TextView)findViewById(R.id.lvl1)).setText("LVL 0");
+//                   ((TextView)findViewById(R.id.textView2)).setText(""+Globals.getInstance().user.getQuests().get(0).getQuestName());
                 }
             }
 

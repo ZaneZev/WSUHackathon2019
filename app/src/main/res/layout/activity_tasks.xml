@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
+        android:id="@+id/TaskList"
         android:layout_width="379dp"
         android:layout_height="643dp"
         android:layout_marginStart="16dp"
