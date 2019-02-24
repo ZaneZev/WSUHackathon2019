@@ -1,4 +1,5 @@
 package com.example.deadline;
+import com.example.deadline.User;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -23,15 +24,23 @@ public class MainActivity extends AppCompatActivity
     // Write a message to the database
 
     private static final String TAG = "MyActivity";
+    private DatabaseReference mDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseApp.initializeApp(this);
 
+        User Person1 = new User("Johnny Apple Boy", 87, 200);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
 
-        myRef.setValue("Hello, World!");
+        myRef.setValue("Hello, World");
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("User").child(Person1.name).setValue(Person1);
+
+
 
         // Read from the database
         myRef.addValueEventListener(new ValueEventListener() {

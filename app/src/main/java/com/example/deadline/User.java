@@ -1,10 +1,12 @@
+package com.example.deadline;
+
 import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class User {
-    private String name;
-    private int age;
-    private int weight;
+    public String name;
+    public int age;
+    public int weight;
 
     public User(){
         // Default Constructor required for calls to DataSnapshot.getValue(User.class)
@@ -15,25 +17,4 @@ public class User {
         this.name = name;
         this.weight = weight;
     }
-
-    public int getAge()
-    {
-        return this.age;
-    }
-
-    public void SetAge(int age)
-    {
-        this.age = age;
-    }
-
-    public String getName()
-    {
-        return this.name;
-    }
-
-    public void SetName(String name)
-    {
-        this.name = name;
-    }
-
 }
