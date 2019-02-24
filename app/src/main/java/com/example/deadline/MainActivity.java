@@ -18,6 +18,10 @@ import android.view.MenuItem;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.*;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -31,14 +35,58 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseApp.initializeApp(this);
 
-        User Person1 = new User("Bob", 45, 300);
+
+        // Person 1
+        List<Level> level1 = new ArrayList<Level>();
+        level1.add(new Level("Trainee",1, 50));
+        level1.add(new Level("Gym",2, 125));
+        level1.add(new Level("Lord of S",3, 300));
+
+        List<Level> level2 = new ArrayList<Level>();
+        level2.add(new Level("Burgee",1, 10));
+        level2.add(new Level("Burgermeister",2, 25));
+        level2.add(new Level("BurgerKing",3, 50));
+
+        List<Level> level3 = new ArrayList<Level>();
+        level3.add(new Level("Green",1, 50));
+        level3.add(new Level("Greener",2, 100));
+        level3.add(new Level("Luigi",3, 150));
+
+
+
+        List<Task> task1 = new ArrayList<Task>();
+        task1.add(new Task("Trial of endurance.", 5));
+        task1.add(new Task("Top",7));
+        task1.add(new Task("Todd",100));
+
+        List<Task> task2 = new ArrayList<Task>();
+        task2.add(new Task("Burger.", 5));
+        task2.add(new Task("Fries",4));
+        task2.add(new Task("4-Nuggets",4));
+
+        List<Task> task3 = new ArrayList<Task>();
+        task3.add(new Task("Recycle", 10));
+        task3.add(new Task("Reuse",10));
+        task3.add(new Task("Reduce",10));
+
+
+        List<Quest> quest1 = new ArrayList<Quest>();
+        quest1.add(new Quest("Get the swolest",level1,task1,0));
+        quest1.add(new Quest("MacCalorie Race",level2,task2,0));
+        quest1.add(new Quest("Be Green",level3,task3,0));
+
+        UserInformation user1 = new UserInformation("Billy","Bob",53,120);
+
+
+        User person1 = new User(user1,quest1);
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
 
         myRef.setValue("Hello, World");
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("User").child(Person1.name).setValue(Person1);
+        mDatabase.child("User").child(person1.getUserinfo().GetFullName()).setValue(person1);
 
 
 
@@ -47,11 +95,16 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                 //userFromDatabase = new User();
+
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+                //User userFromDatabase = dataSnapshot.getValue(User.class);
+                User userFromDatabase = dataSnapshot.child("User").child("BillyBob").getValue(User.class);
+                System.out.println(userFromDatabase);
+                //userFromDatabase. ("Bob");
 
-                User userFromDatabase = dataSnapshot.getValue(User.class);
-                System.out.println("Age: " + userFromDatabase.age + " Name: " + userFromDatabase.name+ " Weight: " + userFromDatabase.weight);
+               // System.out.println("Age: " + userFromDatabase.age + " Name: " + userFromDatabase.name+ " Weight: " + userFromDatabase.weight);
                 Log.d(TAG, "Value is: " + userFromDatabase);
             }
 

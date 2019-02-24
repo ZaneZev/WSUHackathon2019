@@ -2,27 +2,45 @@ package com.example.deadline;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.sql.Struct;
+import java.util.List;
+
 @IgnoreExtraProperties
 public class User {
-    public String name;
-    public int age;
-    public int weight;
-   // public Stat myStats;
+
+    private UserInformation userinfo;
+    private List<Quest> quests;
 
     public User(){
         // Default Constructor required for calls to DataSnapshot.getValue(User.class)
     }
-    public User(String name, int age, int weight)
+
+    public User(UserInformation userinfo, List<Quest> quests)
     {
-        this.age = age;
-        this.name = name;
-        this.weight = weight;
+        this.userinfo = userinfo;
+        this.quests = quests;
+    }
+
+    public UserInformation getUserinfo() {
+        return userinfo;
+    }
+
+    public void setUserinfo(UserInformation userinfo) {
+        this.userinfo = userinfo;
+    }
+
+    public List<Quest> getQuests() {
+        return quests;
+    }
+
+    public void setQuests(List<Quest> quests) {
+        this.quests = quests;
     }
 
     @Override
     public String toString()
     {
-        return "name: "+ this.name +" , age " + this.age + " , Weight: " + this.weight;
+        return "Personal Information: "+ this.userinfo +" , Quests: " + this.quests;
     }
 
 //    public CreateStat()
