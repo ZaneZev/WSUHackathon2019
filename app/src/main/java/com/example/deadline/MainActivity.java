@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.FirebaseApp;
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity
         pushButton = (Button) findViewById(R.id.PushtoDatabase);
         age = (EditText) findViewById(R.id.Age);
         name = (EditText) findViewById(R.id.Name);
+
+
 
 
         // Capture button clicks
@@ -120,12 +123,22 @@ public class MainActivity extends AppCompatActivity
 //
 //        myRef.setValue("Hello, World");
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         mDatabase.orderByChild("User").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-               Globals.getInstance().user  = dataSnapshot.child("BillyBob").getValue(User.class);
-               System.out.println(Globals.getInstance().user);
+               User tmp = dataSnapshot.child("BillyBob").getValue(User.class);
+               if(tmp!=null){
+                   Globals.getInstance().user = tmp;
+                   System.out.println(Globals.getInstance().user);
+                   System.out.println("WOOP!");
+                   ((TextView)findViewById(R.id.pts1)).setText(""+Globals.getInstance().user.getQuests().get(0).getTotalNumberOfPoints());
+                   ((ProgressBar)findViewById(R.id.progressBar)).setProgress(Globals.getInstance().user.getQuests().get(0).getTotalNumberOfPoints());
+                   ((TextView)findViewById(R.id.lvl1)).setText("LVL 0");
+                   ((TextView)findViewById(R.id.pts1)).setText(""+Globals.getInstance().user.getQuests().get(0).getTotalNumberOfPoints());
+                   ((TextView)findViewById(R.id.pts1)).setText(""+Globals.getInstance().user.getQuests().get(0).getTotalNumberOfPoints());
 
+                }
             }
 
             @Override
@@ -175,6 +188,10 @@ public class MainActivity extends AppCompatActivity
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+
+
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

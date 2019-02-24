@@ -121,7 +121,20 @@
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="279dp">
+
+                <EditText
+                    android:id="@+id/Age"
+                    android:layout_width="230dp"
+                    android:layout_height="72dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:ems="10"
+                    android:inputType="numberSigned"
+                    android:text="Age"
+                    app:layout_constraintBottom_toTopOf="@+id/PushtoDatabase"
+                    app:layout_constraintEnd_toEndOf="@+id/scrollView2"
+                    app:layout_constraintStart_toStartOf="@+id/scrollView2" />
 
                 <EditText
                     android:id="@+id/Name"
@@ -136,19 +149,6 @@
                     app:layout_constraintEnd_toEndOf="@+id/scrollView2"
                     app:layout_constraintStart_toStartOf="@+id/scrollView2"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/Age"
-                    android:layout_width="230dp"
-                    android:layout_height="72dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:ems="10"
-                    android:inputType="numberSigned"
-                    android:text="Age"
-                    app:layout_constraintBottom_toTopOf="@+id/PushtoDatabase"
-                    app:layout_constraintEnd_toEndOf="@+id/scrollView2"
-                    app:layout_constraintStart_toStartOf="@+id/scrollView2" />
 
                 <Button
                     android:id="@+id/PushtoDatabase"
