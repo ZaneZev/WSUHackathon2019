@@ -7,6 +7,7 @@ public class User {
     public String name;
     public int age;
     public int weight;
+   // public Stat myStats;
 
     public User(){
         // Default Constructor required for calls to DataSnapshot.getValue(User.class)
@@ -17,4 +18,15 @@ public class User {
         this.name = name;
         this.weight = weight;
     }
+
+    @Override
+    public String toString()
+    {
+        return "name: "+ this.name +" , age " + this.age + " , Weight: " + this.weight;
+    }
+
+//    public CreateStat()
+//    {
+//
+//    }
 }

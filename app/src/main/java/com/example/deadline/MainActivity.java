@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseApp.initializeApp(this);
 
-        User Person1 = new User("Johnny Apple Boy", 87, 200);
+        User Person1 = new User("Bob", 45, 300);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
 
@@ -43,14 +43,16 @@ public class MainActivity extends AppCompatActivity
 
 
         // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Value is: " + value);
+
+                User userFromDatabase = dataSnapshot.getValue(User.class);
+                System.out.println("Age: " + userFromDatabase.age + " Name: " + userFromDatabase.name+ " Weight: " + userFromDatabase.weight);
+                Log.d(TAG, "Value is: " + userFromDatabase);
             }
 
             @Override

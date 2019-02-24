@@ -1,8 +1,9 @@
 package com.example.deadline;
 
 public class Stat {
-    private int statValue;
-    private String statName;
+    public int statValue;
+    public String statName;
+
 
     public Stat()
     {
