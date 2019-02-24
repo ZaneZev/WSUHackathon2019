@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -130,7 +132,11 @@ public class MainActivity extends AppCompatActivity
                if(tmp!=null){
                    Globals.getInstance().user = tmp;
                    System.out.println(Globals.getInstance().user);
-
+                   MainAdapter adapter = new MainAdapter(Globals.getInstance().user.getQuests());
+                   RecyclerView recyclerView = (RecyclerView)findViewById(R.id.Scrolly);
+                   recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                   recyclerView.setHasFixedSize(true);
+                   recyclerView.setAdapter(adapter);
 //                   ((TextView)findViewById(R.id.pts1)).setText(""+Globals.getInstance().user.getQuests().get(0).getTotalNumberOfPoints());
 //                   ((ProgressBar)findViewById(R.id.progressBar)).setProgress(Globals.getInstance().user.getQuests().get(0).getTotalNumberOfPoints());
 //                   ((TextView)findViewById(R.id.lvl1)).setText("LVL 0");

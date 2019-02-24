@@ -6,17 +6,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainAdapter extends RecyclerView.Adapter{
-    private ArrayList<Quest> Questies;
+    private List<Quest> Questies;
 
-    public MainAdapter(ArrayList<Quest> Questies){
-        this.Questies=Questies;
-    }
+    public MainAdapter(List<Quest> Questies){this.Questies=Questies;}
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -42,12 +43,19 @@ public class MainAdapter extends RecyclerView.Adapter{
         private TextView Level;
         private TextView Pts;
         private ProgressBar Prgs;
+        private Button Stats;
+        //private Button Tasks;
+
+
+
         public mViewHolder(final View itemView){
             super(itemView);
             Quest = (TextView)itemView.findViewById(R.id.QuestName);
             Level = (TextView)itemView.findViewById(R.id.Level);
             Pts = (TextView)itemView.findViewById(R.id.Points);
             Prgs = (ProgressBar) itemView.findViewById(R.id.Progress);
+            Stats = (Button)itemView.findViewById(R.id.Stats);
+
 
         }
         public void bindData(final Quest viewModel){
@@ -72,6 +80,13 @@ public class MainAdapter extends RecyclerView.Adapter{
             Prgs.setMin(tmpPntsLow);
             Prgs.setMax(tmpPntsUp);
             Prgs.setProgress(viewModel.getTotalNumberOfPoints());
+            Stats.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    System.out.println("PRESED " + String.valueOf(getAdapterPosition()));
+
+                }
+            });
         }
     }
 }
